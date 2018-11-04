@@ -1,0 +1,35 @@
+// Содержит константы, миксины и вспомагательные классы
+%cursor-pointer
+	cursor: pointer
+
+%hidden
+	display: none
+
+%rarefy-small
+	letter-spacing: 0.05em
+
+$mi-font-size: (tiny: 1rem, small: 2rem, medium: 4rem, large: 6rem)
+
+.hide-on-init
+	@extend %hidden
+
+.material-icons
+	@each $key, $value in ($mi-font-size)
+		&.m-#{$key}
+			font-size: $value
+
+=mv($amount)
+	.mt-#{$amount}
+		margin-top: #{$amount} !important
+	.mb-#{$amount}
+		margin-bottom: #{$amount} !important
+	.mv-#{$amount}
+		margin-top: #{$amount} !important
+		margin-bottom: #{$amount} !important
+
++mv(0)
+.mt-15
+	margin-top: 15px
+.mb-20
+	border: none
+	margin-bottom: 20px

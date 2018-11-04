@@ -1,0 +1,49 @@
+{
+  "name": "stater",
+  "version": "1.0.0",
+  "description": "State Registry Search",
+  "main": "index.php",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tougaj/stater.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tougaj/stater/issues"
+  },
+  "homepage": "https://github.com/tougaj/stater#readme",
+  "devDependencies": {
+    "browser-sync": "^2.26.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-changed": "^3.2.0",
+    "gulp-clean-css": "^3.10.0",
+    "gulp-csslint": "^1.0.1",
+    "gulp-eslint": "^4.0.2",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.0.1",
+    "gulp-typescript": "^4.0.2",
+    "gulp-uglify": "^3.0.1",
+    "merge2": "^1.2.2",
+    "typescript": "^2.9.2",
+    "webpack-stream": "^5.1.1"
+  },
+  "dependencies": {
+    "@types/jquery": "^3.3.21",
+    "@types/lodash": "^4.14.117",
+    "@types/react": "^16.4.18",
+    "@types/react-dom": "^16.0.9",
+    "csstype": "^2.5.7",
+    "gulp-less": "^4.0.1",
+    "iconv-lite": "^0.4.24",
+    "jquery": "^3.3.1",
+    "lodash": "^4.17.11",
+    "progress": "^2.0.1",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2"
+  }
+}

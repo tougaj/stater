@@ -1,0 +1,7 @@
+logs
+node_modules
+*.7z
+utils/*.old
+utils/*.xml
+utils/*.txt
+src/js/definition

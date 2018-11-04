@@ -1,0 +1,1 @@
+start /low node clearXML.js
