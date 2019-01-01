@@ -56,15 +56,12 @@ function loadRegistryFromPage(pageAddress) {
 	});
 };
 
-function loadRegisters(pages){
-	return new Promise(async (resolve, reject) => {
-		for (let i = 0; i < pages.length; i++){
-			const address = pages[i];
-			await loadRegistryFromPage(address)
-				.then(console.log);
-		}
-		resolve('All done');
-	})
+async function loadRegisters(pages){
+	for (let i = 0; i < pages.length; i++){
+		await loadRegistryFromPage(pages[i])
+			.then(console.log);
+	}
+	return('All done');
 }
 
 loadRegisters(regPages)
