@@ -87,8 +87,10 @@ var edr;
         if (fTableCanOmit === void 0) { fTableCanOmit = true; }
         if ((typeof o) === 'string' || (typeof o) === 'number') {
             var sBadge = '';
-            if (o.toUpperCase().replace(/\s{2,}/g, ' ').indexOf(searchString) !== -1)
+            if (o.toUpperCase().replace(/\s{2,}/g, ' ').indexOf(searchString) !== -1 && o !== '&nbsp;') {
                 sBadge = '<i class="fa fa-check fa-lg text-success pull-right"></i>';
+            }
+            ;
             return $('<span></span>').html(o).prepend(sBadge);
         }
         else {
@@ -132,11 +134,11 @@ var edr;
         }
     };
     var drawRegistry = function (r) {
-        console.log(r);
+        // console.log(r)
         var ITEMS_MAX_COUNT = 1000;
         var nCount = r.items.length;
         if (ITEMS_MAX_COUNT < nCount)
-            nCount = ITEMS_MAX_COUNT + "<big>+</big>";
+            nCount = ITEMS_MAX_COUNT + "+";
         $("<h2 class=\"text-info\" id=\"r" + r.index + "\" style=\"position: sticky\"></h2>").html(r.title + " <small>" + r.subtitle + "</small>")
             .attr('title', r.title + " " + r.subtitle)
             // .append(`<small> (знайдено об'єктів: ${nCount})</small>`)
@@ -146,8 +148,12 @@ var edr;
         r.items.forEach(function (item, index) {
             var element;
             if (item.WARNING === undefined && item.RAWDATA === undefined) {
-                var sTitle = item.NAME || item.FIO;
-                $('<h3></h3>').text(index + 1 + ". " + sTitle).appendTo(root);
+                var sTitle = item.NAME || item.FIO || item.NAMES_AGENC;
+                if (sTitle === undefined && typeof (item.NAMES_LANG) === 'object') {
+                    var names = item.NAMES_LANG.NAME_LANG;
+                    sTitle = Array.isArray(names) ? names.join(' &bullet; ') : names;
+                }
+                $('<h3></h3>').html(index + 1 + ". " + sTitle).appendTo(root);
                 element = getRegistryElement(item, false);
             }
             else {
@@ -163,7 +169,11 @@ var edr;
             element.appendTo(root);
         });
     };
+    var clearHash = function () {
+        location.hash = '';
+    };
     $(document).ready(function () {
+        $('#fmSearch').submit(clearHash);
         checkInit();
     });
 })(edr || (edr = {}));

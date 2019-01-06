@@ -1,5 +1,4 @@
 var gulp = require('gulp');
-// var portal = require('portal-main');
 var changed = require('gulp-changed');
 // var rename = require('gulp-rename');
 var merge = require('merge2');
@@ -83,11 +82,8 @@ gulp.task('sass', function () {
 });
 
 // gulp.task('production', () => {
-	// let sServerDir = 'd:/temp/edr';
-	// let sServerDir = '//dell2/e$/Execute/edr';
-	// portal.copyFiles2Production('../dist/**/*', sServerDir);
-	// portal.copyFiles2Production(['../**/*.php', '!../internet/**/*.php'], sServerDir);
-	// portal.copyFiles2Production(['../**/*.php', '../dist/**/*.*'], sServerDir);
+// 	let sServerDir = 'd:/temp/edr';
+// 	portal.copyFiles2Production(['./**/*.php', './dist/**/*.*'], sServerDir);
 // });
 
 gulp.task('default', ['ts', 'sass'], () => {
@@ -101,12 +97,9 @@ gulp.task('default', ['ts', 'sass'], () => {
 		// serveStatic: ['./*.css', './*.js', './*.php']
 	});
 
-	// gulp.watch(jsSource, ['js'])
-	// 	.on('change', portal.onFilesChange);
+	// gulp.watch(jsSource, ['js']);
 	gulp.watch(sTSSource, ['ts']);
-		// .on('change', portal.onFilesChange);
 	gulp.watch(sassSource, ['sass']);
-		// .on('change', portal.onFilesChange);
 
 	gulp.watch('./index.php').on('change', browserSync.reload);
 });

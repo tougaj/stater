@@ -7,6 +7,7 @@ header("Cache-control: private, max-age=300");
 // header("Cache-control: no-cache, must-revalidate");
 
 $sTerm = trim(filter_input(INPUT_GET, 'term'));
+// $sTerm = filter_input(INPUT_GET, 'term');
 $sTerm = preg_replace('/"/', '&quot;', $sTerm);
 
 $fop = filter_input(INPUT_GET, 'fop', FILTER_VALIDATE_INT);
@@ -21,7 +22,7 @@ $arFOP = array('Все, крім ФОП', 'ФОП');
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title><?php echo $sTerm; ?> :: Пошук у Державних Реєстрах</title>
+		<title><?php echo ($sTerm == '' ? '' : $sTerm . ' :: ' ); ?>Пошук у Державних Реєстрах</title>
 
 		<!-- work -->
 		<!-- <link href="/fonts/Helvetica_Neue/stylesheet.css" rel="stylesheet">
@@ -33,6 +34,7 @@ $arFOP = array('Все, крім ФОП', 'ФОП');
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+		
 
 
 		<link rel="stylesheet" href="css/edr.css?ts=<?php echo $revision ?>">
@@ -110,7 +112,7 @@ $arFOP = array('Все, крім ФОП', 'ФОП');
 					<a class="navbar-brand" href="/">
 						<img alt="Brand" src="/img/brand.png">
 					</a>
-					<p class="navbar-text">&copy; Олександр Тугай,<br>2018</p>
+					<p class="navbar-text">Копірайт<br>Назва організації</p>
 				</div>
 			</div>
 		</nav>
@@ -122,6 +124,7 @@ $arFOP = array('Все, крім ФОП', 'ФОП');
 		<!-- Home -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>		
+		
 
 		<script src="js/edr.js?ts=<?php echo $revision ?>" charset="utf-8"></script>
 	</body>

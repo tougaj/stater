@@ -6,8 +6,6 @@ const {Transform} = require('stream');
 class RecordSeparator extends Transform{
 	constructor(opt = {}){
 		super(opt);
-		// this.byteCounter = 0;
-		// this.totalBytes = opt.fileSize;
 		this.bar = new ProgressBar(':elapseds :percent [:bar] :etas', {
 			total: opt.fileSize,
 			renderThrottle: 100,
@@ -16,6 +14,8 @@ class RecordSeparator extends Transform{
 			incomplete: ' ',
 			complete: '=',
 		});
+		this.sRest = '';
+		this.nRecordCount = 0;
 		// console.log('\n -------- Transform in constructor');
 		// console.log('objectMode ', this._writableState.objectMode);//false по умолчанию, если не задано явно true
 		// console.log('highWaterMark ', this._writableState.highWaterMark);//16384
@@ -51,14 +51,27 @@ class RecordSeparator extends Transform{
 	* @private
 	*/
 	_transform(chunk, encoding, done){
-		// this.byteCounter += chunk.length;
-		// console.log(`${(this.byteCounter/1024/1024).toFixed(2)} mB processed`);
-		// console.log(`${(this.byteCounter/this.totalBytes*100).toFixed(1)} % processed`);
 		this.bar.tick(chunk.length);
-		let decoded = iconv.decode(chunk, 'win1251');
-		// console.log(decoded);
-		// decoded = decoded.replace(/<(\/?)(?:record)>/ig, '<$1ITEM>');
-		let encoded = iconv.encode(decoded, 'win1251');
+
+		let sDecoded = iconv.decode(chunk, 'win1251');
+		sDecoded = sDecoded.replace(/[\r\n]+/g, '');
+
+		this.sRest = this.sRest+sDecoded;
+		// this.sRest = this.sRest.replace(/&quot;/ig, '"').replace(/&apos;/ig, '\'');
+
+		const reRecord = /<RECORD>.+?<\/RECORD>/ig;
+		let sResult = '';
+		var record;
+		var nLastIndex = 0;
+		while ((record = reRecord.exec(this.sRest)) !== null){
+			sResult = `${sResult}${record[0]}\n`;
+			this.nRecordCount++;
+			nLastIndex = reRecord.lastIndex;
+		}
+
+		this.sRest = this.sRest.substr(nLastIndex);
+		const encoded = iconv.encode(sResult, 'win1251');
+
 		this.push(encoded);
 		done();
 		/*завершить обработку текущих данных chunk, и передать дальше на чтение можно двумя вариантами
@@ -83,6 +96,7 @@ class RecordSeparator extends Transform{
 	_flush(done){
 		//TODO ... что-нибудь сделали дополнительно перед завершением работы потока
 		// this.push('done');
+		console.log(`Total records processed: ${this.nRecordCount}\nRest is:\n<<<<<-----\n${this.sRest}\n----->>>>>`);
 		done();
 	}
 }

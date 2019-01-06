@@ -98,7 +98,9 @@ namespace edr {
 	let getRegistryElement = function(o: any, fTableCanOmit = true): JQuery{
 		if ((typeof o) === 'string' || (typeof o) === 'number'){
 			let sBadge = '';
-			if (o.toUpperCase().replace(/\s{2,}/g, ' ').indexOf(searchString) !== -1) sBadge = '<i class="fa fa-check fa-lg text-success pull-right"></i>';
+			if (o.toUpperCase().replace(/\s{2,}/g, ' ').indexOf(searchString) !== -1 && o !== '&nbsp;'){
+				sBadge = '<i class="fa fa-check fa-lg text-success pull-right"></i>';
+			};
 			return $('<span></span>').html(o).prepend(sBadge);
 		} else {
 			let keys = [];
@@ -146,10 +148,10 @@ namespace edr {
 	}
 
 	let drawRegistry = function(r: IRegistry){
-		console.log(r)
+		// console.log(r)
 		const ITEMS_MAX_COUNT = 1000;
 		let nCount: number | string = r.items.length;
-		if (ITEMS_MAX_COUNT < nCount) nCount = `${ITEMS_MAX_COUNT}<big>+</big>`;
+		if (ITEMS_MAX_COUNT < nCount) nCount = `${ITEMS_MAX_COUNT}+`;
 		$(`<h2 class="text-info" id="r${r.index}" style="position: sticky"></h2>`).html(`${r.title} <small>${r.subtitle}</small>`)
 			.attr('title', `${r.title} ${r.subtitle}`)
 			// .append(`<small> (знайдено об'єктів: ${nCount})</small>`)
@@ -159,8 +161,12 @@ namespace edr {
 		r.items.forEach((item, index) => {
 			let element: JQuery;
 			if (item.WARNING === undefined && item.RAWDATA === undefined){
-				let sTitle = item.NAME || item.FIO;
-				$('<h3></h3>').text(`${index+1}. ${sTitle}`).appendTo(root);
+				let sTitle = item.NAME || item.FIO || item.NAMES_AGENC;
+				if (sTitle === undefined && typeof(item.NAMES_LANG) === 'object'){
+					const names = item.NAMES_LANG.NAME_LANG;
+					sTitle = Array.isArray(names) ? names.join(' &bullet; ') : names;
+				}
+				$('<h3></h3>').html(`${index+1}. ${sTitle}`).appendTo(root);
 				element = getRegistryElement(item, false);
 			} else {
 				if (item.WARNING !== undefined){
@@ -175,7 +181,12 @@ namespace edr {
 		});
 	}
 
+	let clearHash = function(){
+		location.hash = '';
+	}
+
 	$(document).ready(function(){
+		$('#fmSearch').submit(clearHash);
 		checkInit();
 	});
 };
