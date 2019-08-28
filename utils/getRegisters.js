@@ -11,6 +11,8 @@
 const axios = require('axios');
 const cheerio = require('cheerio')
 const fs = require('fs');
+let httpsProxyAgent = require('https-proxy-agent');
+const agent = new httpsProxyAgent('http://vahta:vahta@192.168.0.1:3128/');
 
 const regPages = [
 	'https://data.gov.ua/dataset/1c7f3815-3259-45e0-bdf1-64dca07ddc10',
@@ -19,13 +21,16 @@ const regPages = [
 	'https://data.gov.ua/dataset/b07bc894-7301-4bf2-a796-2708e9729538',
 ];
 
+
 function loadRegistryFromPage(pageAddress) {
 	let fileName = '';
 	return new Promise((resolve, reject) => {
+		// proxy: 'http://vahta:vahta@192.168.0.1:3128/',
 		axios({
 				method: 'get',
 				url: pageAddress,
-				responseType: 'text'
+				responseType: 'text',
+				httpsAgent: agent,
 			})
 			.then(response => {
 				const $ = cheerio.load(response.data);
@@ -41,7 +46,8 @@ function loadRegistryFromPage(pageAddress) {
 				return axios({
 					method:'get',
 					url: addresForLoad,
-					responseType:'stream'
+					responseType:'stream',
+					httpsAgent: agent,
 				});
 			})
 			.then(response => {
