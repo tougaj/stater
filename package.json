@@ -44,7 +44,7 @@
     "https-proxy-agent": "^2.2.1",
     "iconv-lite": "^0.4.24",
     "jquery": "^3.4.0",
-    "lodash": "^4.17.13",
+    "lodash": "^4.17.15",
     "progress": "^2.0.1",
     "react": "^16.5.2",
     "react-dom": "^16.5.2"
