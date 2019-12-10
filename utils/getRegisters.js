@@ -12,7 +12,7 @@ const axios = require('axios');
 const cheerio = require('cheerio')
 const fs = require('fs');
 let httpsProxyAgent = require('https-proxy-agent');
-const agent = new httpsProxyAgent('http://vahta:vahta@192.168.0.1:3128/');
+const agent = new httpsProxyAgent('http://login:password@192.168.0.1:3128/');
 
 const regPages = [
 	'https://data.gov.ua/dataset/1c7f3815-3259-45e0-bdf1-64dca07ddc10',
@@ -25,7 +25,6 @@ const regPages = [
 function loadRegistryFromPage(pageAddress) {
 	let fileName = '';
 	return new Promise((resolve, reject) => {
-		// proxy: 'http://vahta:vahta@192.168.0.1:3128/',
 		axios({
 				method: 'get',
 				url: pageAddress,
