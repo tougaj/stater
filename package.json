@@ -43,7 +43,7 @@
     "gulp-less": "^4.0.1",
     "https-proxy-agent": "^2.2.4",
     "iconv-lite": "^0.4.24",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "lodash": "^4.17.15",
     "progress": "^2.0.3",
     "react": "^16.10.2",
