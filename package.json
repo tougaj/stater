@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/tougaj/stater#readme",
   "devDependencies": {
-    "browser-sync": "^2.26.10",
+    "browser-sync": "^2.26.13",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^5.0.0",
     "gulp-changed": "^3.2.0",
@@ -33,20 +33,20 @@
     "webpack-stream": "^5.2.1"
   },
   "dependencies": {
-    "@types/jquery": "^3.5.0",
-    "@types/lodash": "^4.14.157",
-    "@types/react": "^16.9.43",
-    "@types/react-dom": "^16.9.8",
-    "axios": "^0.18.1",
-    "cheerio": "^1.0.0-rc.3",
-    "csstype": "^2.6.11",
+    "@types/jquery": "^3.5.5",
+    "@types/lodash": "^4.14.167",
+    "@types/react": "^16.14.2",
+    "@types/react-dom": "^16.9.10",
+    "axios": "^0.21.1",
+    "cheerio": "^1.0.0-rc.5",
+    "csstype": "^2.6.14",
     "gulp-less": "^4.0.1",
     "https-proxy-agent": "^2.2.4",
     "iconv-lite": "^0.4.24",
     "jquery": "^3.5.1",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.20",
     "progress": "^2.0.3",
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2"
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0"
   }
 }
