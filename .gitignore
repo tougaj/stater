@@ -5,3 +5,5 @@ utils/*.old
 utils/*.xml
 utils/*.txt
 src/js/definition
+css/*
+js/*
